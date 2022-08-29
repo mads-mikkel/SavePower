@@ -1,6 +1,7 @@
 ## Kredsløbet
 ### LED Lysstyrke test
 Formål: At undersøge hvilken lysstyrke for hver LED, der samlet giver det bedste visuelle indtryk. Testen udf'res ved at placere forskellige modstande foran det + benet på hver LED. To test skal udføres, en for 5 mm LED, og en for 3 mm.
+Alt er 5V.
 
 | Navn              | Dato          | Status        | Resultat  |
 |:------------------|:--------------|:--------------|----------:|
