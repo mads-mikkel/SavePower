@@ -31,10 +31,43 @@ def getPowerPrices(jsonData):
         price = round(entry['SpotPriceDKK'])
         prices.append(date + hour + " " + str(price))
     prices.sort(key = lambda x: x.split()[0])
-    for entry in prices:
+    for entry in prices:  
         print(f"{entry[0:10]} kl. {entry[10:12]}: {entry[13:]} øre/kWh")
+    return prices
+
+def getCheapestHourToday(prices):
+    price4Hour = []
+    for each in range(len(prices) - 3):
+        averagePrice = 0
+        if prices[each][8:10] == str(18): #Replace 18 with current date 
+            for i in range(4):
+                averagePrice += int(prices[each + i][13:])
+            averagePrice = averagePrice / 4
+            price4Hour.append(prices[each][10:12] + " " + str(averagePrice))
+            print(prices[each][10:12] + " " + str(averagePrice))
+    price4Hour.sort(key = lambda x: x.split()[1])
+    return price4Hour[0][0:2]
+
+def getCheapestHourTomorrow(prices):
+    price4Hour = []
+    for each in range(len(prices) - 3):
+        averagePrice = 0
+        if prices[each][8:10] == str(19): #Replace 19 with date tomorrow
+            for i in range(4):
+                averagePrice += int(prices[each + i][13:])
+            averagePrice = averagePrice / 4
+            price4Hour.append(prices[each][10:12] + " " + str(averagePrice))
+            print(prices[each][10:12] + " " + str(averagePrice))
+    price4Hour.sort(key = lambda x: x.split()[1])
+    if len(price4Hour) == 0: 
+        return None
+    else:
+        return price4Hour[0][0:2]
+
 
 print("henter data...")
 json = getData()
 print(json)
-getPowerPrices(json)
+prices = getPowerPrices(json)
+getCheapestHourToday(prices)
+getCheapestHourTomorrow(prices)
